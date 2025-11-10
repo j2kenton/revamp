@@ -1,6 +1,6 @@
-# Next.js Full-Stack Application
+# ReVamp - a mildly controversial architecture pattern for supercharged web apps 🚀
 
-This is a modern, full-stack web application built with Next.js and a comprehensive suite of tools for development, testing, and production. It includes features like user authentication, a robust form system, and a component library built with shadcn-ui.
+This repository serves as an opinionated starting point for building modern web applications. It is not a complete, production-ready app but rather a template showcasing a specific architecture pattern using a comprehensive suite of tools.
 
 ## Tech Stack
 
