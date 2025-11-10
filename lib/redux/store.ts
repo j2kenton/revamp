@@ -17,6 +17,9 @@ const enhancer =
 // Store factory function for SSR compatibility
 export const initializeStore = () => createStore(rootReducer, undefined, enhancer);
 
+// Create and export the store instance
+export const store = initializeStore();
+
 // Export types for TypeScript
-export type AppDispatch = ReturnType<typeof initializeStore>['dispatch'];
+export type AppDispatch = typeof store.dispatch;
 export type { RootState };
