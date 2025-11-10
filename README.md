@@ -1,6 +1,6 @@
 # ReVamp - a mildly controversial architecture pattern for supercharged web apps 🚀
 
-This repository serves as an opinionated starting point for building modern web applications. It is not a complete, production-ready app but rather a template showcasing a specific architecture pattern using a comprehensive suite of tools.
+This repository serves as an opinionated starting point for building modern web applications. It is not a complete, production-ready app but rather a template showcasing a specific architecture pattern using a comprehensive suite of tools. Many decisions are based on Josh Comeau's excellent course [The Joy of React](https://www.joyofreact.com/).
 
 ## Tech Stack
 
