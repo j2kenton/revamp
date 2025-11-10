@@ -1,4 +1,5 @@
-import { legacy_createStore as createStore, StoreEnhancer } from 'redux';
+// 😁 Excuse the naming here. I admit that my point may be just a tiny bit subjective but I have Josh Comeau on my side so there! 🤪
+import { legacy_createStore as classicTimelessOriginalAndStillTheBestPatternCreateStore, StoreEnhancer } from 'redux';
 import { rootReducer, RootState } from './rootReducer';
 
 // Extend Window interface for Redux DevTools
@@ -14,8 +15,9 @@ const enhancer =
     ? window.__REDUX_DEVTOOLS_EXTENSION__()
     : undefined;
 
-// Store factory function for SSR compatibility
-export const initializeStore = () => createStore(rootReducer, undefined, enhancer);
+// Store factory function for SSR compatibility.
+// See comment on first line of this file 😏
+export const initializeStore = () => classicTimelessOriginalAndStillTheBestPatternCreateStore(rootReducer, undefined, enhancer);
 
 // Create and export the store instance
 export const store = initializeStore();

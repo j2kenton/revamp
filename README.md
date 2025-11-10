@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Full-Stack Application
+
+This is a modern, full-stack web application built with Next.js and a comprehensive suite of tools for development, testing, and production. It includes features like user authentication, a robust form system, and a component library built with shadcn-ui.
+
+## Tech Stack
+
+This project uses a modern, type-safe, and performant tech stack:
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [shadcn-ui](https://ui.shadcn.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **State Management**:
+  - [Redux Toolkit](https://redux-toolkit.js.org/) for global state.
+  - [SWR](https://swr.vercel.app/) for remote data fetching and caching.
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/)
+- **Forms**: [React Hook Form](https://react-hook-form.com/) with [Zod](https://zod.dev/) for validation.
+- **Testing**:
+  - **Unit/Integration**: [Jest](https://jestjs.io/) with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/).
+  - **End-to-End**: [Playwright](https://playwright.dev/).
+- **Linting & Formatting**: [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/).
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running, follow these simple steps.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+### Prerequisites
+
+- Node.js (v20.9.0 or later)
+
+### Installation
+
+1. Clone the repository:
+
+    ```sh
+    git clone <your-repository-url>
+    ```
+
+2. Navigate to the project directory:
+
+    ```sh
+    cd app-with-login
+    ```
+
+3. Install the dependencies:
+
+    ```sh
+    pnpm install
+    ```
+
+4. Set up your environment variables by creating a `.env.local` file in the root of the project.
+
+### Running the Development Server
+
+To start the development server, run:
+
+```sh
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000> with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `pnpm dev`: Runs the app in development mode.
+- `pnpm build`: Builds the application for production.
+- `pnpm start`: Starts a production server.
+- `pnpm lint`: Lints the codebase using ESLint.
+- `pnpm format`: Formats the codebase using Prettier.
+- `pnpm test`: Runs the test suite (Jest and Playwright).
