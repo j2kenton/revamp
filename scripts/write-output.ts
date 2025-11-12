@@ -12,21 +12,40 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const outputMap = require('./output-map.json');
+const outputMap: OutputMap = require('./output-map.json');
 
-const repoRoot = path.resolve(__dirname, '..');
+const __filename: string = fileURLToPath(import.meta.url);
+const __dirname: string = path.dirname(__filename);
+const repoRoot: string = path.resolve(__dirname, '..');
 
-function normalizePath(p) {
+interface Options {
+  prompt?: string;
+  source?: string;
+  text?: string;
+  help?: boolean;
+}
+
+interface OutputMap {
+  [key: string]: string;
+}
+
+interface OutputPathResult {
+  outputRelative: string;
+  outputAbsolute: string;
+}
+
+function normalizePath(p: string): string {
   return p.replace(/\\/g, '/');
 }
 
-function parseArgs(argv) {
-  const options = {};
+function parseArgs(argv: string[]): Options {
+  const options: Options = {};
   for (let i = 0; i < argv.length; i += 1) {
-    const arg = argv[i];
+    const arg: string = argv[i];
     switch (arg) {
       case '--prompt':
         options.prompt = argv[++i];
@@ -59,7 +78,7 @@ function parseArgs(argv) {
   return options;
 }
 
-function printHelp() {
+function printHelp(): void {
   const helpText = `
 Usage:
   node scripts/write-output.ts --prompt <prompt-path> [--source <file> | --text "<content>"]
@@ -76,21 +95,21 @@ If neither --source nor --text is provided, the script reads from stdin.
   console.log(helpText.trim());
 }
 
-async function readContent(options) {
+async function readContent(options: Options): Promise<string> {
   if (options.text) {
     return options.text;
   }
 
   if (options.source) {
-    const absoluteSource = path.resolve(repoRoot, options.source);
+    const absoluteSource: string = path.resolve(repoRoot, options.source);
     return fs.promises.readFile(absoluteSource, 'utf8');
   }
 
   if (!process.stdin.isTTY) {
-    return new Promise((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
       let data = '';
       process.stdin.setEncoding('utf8');
-      process.stdin.on('data', (chunk) => {
+      process.stdin.on('data', (chunk: string) => {
         data += chunk;
       });
       process.stdin.on('end', () => resolve(data));
@@ -103,69 +122,70 @@ async function readContent(options) {
   );
 }
 
-function resolvePrompt(promptInput) {
+function resolvePrompt(promptInput?: string): string {
   if (!promptInput) {
     throw new Error('Missing required --prompt argument.');
   }
-  const absolutePrompt = path.resolve(repoRoot, promptInput);
-  const relativePrompt = path.relative(repoRoot, absolutePrompt);
-  const normalizedPrompt = normalizePath(relativePrompt);
+  const absolutePrompt: string = path.resolve(repoRoot, promptInput);
+  const relativePrompt: string = path.relative(repoRoot, absolutePrompt);
+  const normalizedPrompt: string = normalizePath(relativePrompt);
   return normalizedPrompt;
 }
 
-function getOutputPath(promptKey) {
-  const outputRelative = outputMap[promptKey];
+function getOutputPath(promptKey: string): OutputPathResult {
+  const outputRelative: string | undefined = outputMap[promptKey];
   if (!outputRelative) {
-    const availableKeys = Object.keys(outputMap)
-      .map((key) => `  - ${key}`)
+    const availableKeys: string = Object.keys(outputMap)
+      .map((key: string) => `  - ${key}`)
       .join('\n');
     throw new Error(
       `No output mapping found for "${promptKey}".\nAvailable prompt keys:\n${availableKeys}`,
     );
   }
-  const outputAbsolute = path.resolve(repoRoot, outputRelative);
+  const outputAbsolute: string = path.resolve(repoRoot, outputRelative);
   return { outputRelative, outputAbsolute };
 }
 
-function backupIfNeeded(outputAbsolute) {
+function backupIfNeeded(outputAbsolute: string): string | null {
   if (!fs.existsSync(outputAbsolute)) {
     return null;
   }
-  const timestamp = new Date().toISOString().replace(/[:]/g, '-');
-  const outputDir = path.dirname(outputAbsolute);
-  const baseName = path.basename(outputAbsolute);
+  const timestamp: string = new Date().toISOString().replace(/[:]/g, '-');
+  const outputDir: string = path.dirname(outputAbsolute);
+  const baseName: string = path.basename(outputAbsolute);
   const backupName = `.${baseName}.${timestamp}.bak`;
-  const backupPath = path.join(outputDir, backupName);
+  const backupPath: string = path.join(outputDir, backupName);
   fs.copyFileSync(outputAbsolute, backupPath);
   return normalizePath(path.relative(repoRoot, backupPath));
 }
 
-function writeAtomically(outputAbsolute, content) {
-  const outputDir = path.dirname(outputAbsolute);
+function writeAtomically(outputAbsolute: string, content: string): void {
+  const outputDir: string = path.dirname(outputAbsolute);
   fs.mkdirSync(outputDir, { recursive: true });
   const tempName = `.${path.basename(outputAbsolute)}.${process.pid}.${Date.now()}.tmp`;
-  const tempPath = path.join(outputDir, tempName);
+  const tempPath: string = path.join(outputDir, tempName);
   fs.writeFileSync(tempPath, content, 'utf8');
   fs.renameSync(tempPath, outputAbsolute);
 }
 
-async function main() {
+async function main(): Promise<void> {
   try {
-    const options = parseArgs(process.argv.slice(2));
+    const options: Options = parseArgs(process.argv.slice(2));
     if (options.help) {
       printHelp();
       return;
     }
 
-    const promptKey = resolvePrompt(options.prompt);
-    const { outputRelative, outputAbsolute } = getOutputPath(promptKey);
-    const content = await readContent(options);
+    const promptKey: string = resolvePrompt(options.prompt);
+    const { outputRelative, outputAbsolute }: OutputPathResult =
+      getOutputPath(promptKey);
+    const content: string = await readContent(options);
 
-    const backupPath = backupIfNeeded(outputAbsolute);
+    const backupPath: string | null = backupIfNeeded(outputAbsolute);
     writeAtomically(outputAbsolute, content);
 
-    const bytes = Buffer.byteLength(content, 'utf8');
-    const messageParts = [
+    const bytes: number = Buffer.byteLength(content, 'utf8');
+    const messageParts: string[] = [
       `Updated ${outputRelative} (${bytes} bytes)`,
       backupPath
         ? `backup saved to ${backupPath}`
@@ -173,7 +193,9 @@ async function main() {
     ];
     console.log(`[write-output] ${messageParts.join('; ')}`);
   } catch (error) {
-    console.error(`[write-output] ${error.message}`);
+    const errorMessage: string =
+      error instanceof Error ? error.message : String(error);
+    console.error(`[write-output] ${errorMessage}`);
     process.exitCode = 1;
   }
 }
