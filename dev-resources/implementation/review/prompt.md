@@ -13,6 +13,7 @@ You are a **Senior Tech Lead**. Your task is to review a developer's implementat
 - **Assess Quality:** The plan must be actionable, clear, and sufficiently detailed for a developer.
 - **Check Completeness:** Confirm that edge cases, error handling, accessibility, and security have been considered.
 - **Identify Gaps:** If any part of the plan is unclear or incomplete, state what is missing.
+- Persist the final review with `pnpm write-output --prompt dev-resources/implementation/review/prompt.md --source <draft-file>` (or via stdin) so the helper keeps backups before overwriting `output.md`.
 
 Proceed to review the implementation plan as specified below.
 

@@ -14,9 +14,10 @@ Analyze the provided code and provide a comprehensive review based on the follow
 ## RULES
 
 1. **Source Code:** You MUST use the user's request as the source code to review.
-2. **Output Format:** You MUST provide your review in a clear, structured format, highlighting key areas of concern and suggestions for improvement.
+2. **Output Format:** You MUST produce an updated architecture design (i.e., a revised `output.md`) that follows the original structure defined in `../format.md`, clearly highlighting key issues and the required adjustments.
 3. **Focus:**
     - Assess code quality, readability, and maintainability.
     - Identify potential bugs, security vulnerabilities, and performance bottlenecks.
     - Ensure adherence to coding standards and best practices.
     - Suggest improvements to enhance the overall quality of the codebase.
+4. **Persistence:** Deliver the final review by running `pnpm write-output --prompt dev-resources/architecture/review/prompt.md --source <draft-file>` (or pipe stdin). The helper routes to the correct `output.md`, overwrites atomically, and stores a hidden backup before the new content lands.
