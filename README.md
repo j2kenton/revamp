@@ -1,4 +1,4 @@
-# ReVamp - AI-Powered Web Development Framework
+# ReVamp - AI-Powered Web Development "Framework"
 
 > Supercharge your development workflow with AI agents and a production-ready Next.js starter 🚀
 
