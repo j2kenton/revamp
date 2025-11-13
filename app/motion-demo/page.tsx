@@ -6,8 +6,6 @@
 
 'use client';
 
-import React from 'react';
-
 import { FadeInCard } from '@/components/examples/motion/FadeInCard';
 import { StaggeredList } from '@/components/examples/motion/StaggeredList';
 import { PresenceToggle } from '@/components/examples/motion/PresenceToggle';

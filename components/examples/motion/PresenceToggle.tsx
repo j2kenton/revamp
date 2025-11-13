@@ -6,7 +6,7 @@
 
 'use client';
 
-import React from 'react';
+import { useState } from 'react';
 import {
   AnimatePresence,
   motion,
@@ -17,7 +17,7 @@ import {
 import { scaleIn } from '@/lib/motion/variants';
 
 export function PresenceToggle() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
   return (

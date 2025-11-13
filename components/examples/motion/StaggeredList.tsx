@@ -7,15 +7,15 @@
 
 'use client';
 
-import React from 'react';
+import type { Key, ReactNode } from 'react';
 import { motion, useReducedMotion, MotionConfig } from 'framer-motion';
 
 import { staggerContainer, fadeInUp } from '@/lib/motion/variants';
 
 export interface StaggeredListProps<T> {
   items: T[];
-  renderItem: (item: T, index: number) => React.ReactNode;
-  getKey: (item: T, index: number) => React.Key;
+  renderItem: (item: T, index: number) => ReactNode;
+  getKey: (item: T, index: number) => Key;
   title?: string;
 }
 

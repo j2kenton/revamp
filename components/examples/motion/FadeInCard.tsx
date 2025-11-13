@@ -7,7 +7,7 @@
 
 'use client';
 
-import React from 'react';
+import type { ReactNode } from 'react';
 import { motion, useReducedMotion, MotionConfig } from 'framer-motion';
 
 import { fadeInUp } from '@/lib/motion/variants';
@@ -15,7 +15,7 @@ import { fadeInUp } from '@/lib/motion/variants';
 export interface FadeInCardProps {
   title: string;
   subtitle?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 export function FadeInCard({ title, subtitle, children }: FadeInCardProps) {

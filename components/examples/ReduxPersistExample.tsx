@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
 import {
   increment,
