@@ -21,6 +21,41 @@ This project uses a modern, type-safe, and performant tech stack:
   - **End-to-End**: [Playwright](https://playwright.dev/).
 - **Linting & Formatting**: [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/).
 
+## Example Implementations
+
+This project includes comprehensive boilerplate and examples for key libraries:
+
+### 🔄 SWR Data Fetching
+
+Complete implementation with examples covering:
+
+- **Basic fetching** with loading/error states
+- **Pagination** for large datasets
+- **CRUD operations** using mutations
+- **Real-time search** with debouncing
+- **Authenticated requests** with token handling
+
+**Location**: `lib/swr/` and `components/examples/`
+
+**Demo Page**: Visit `/swr-demo` to see all examples in action
+
+**Documentation**:
+
+- Comprehensive guide: `lib/swr/README.md`
+- Quick reference: `lib/swr/QUICK_REFERENCE.md`
+
+### 🔐 Authentication (NextAuth.js)
+
+Complete auth setup with session management and protected routes.
+
+**Location**: `lib/auth/` and `app/api/auth/`
+
+### 📦 Redux State Management
+
+Redux Toolkit implementation with example slices.
+
+**Location**: `lib/redux/`
+
 ## Getting Started
 
 To get a local copy up and running, follow these simple steps.
