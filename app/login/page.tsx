@@ -71,7 +71,11 @@ export default function LoginPage() {
           noValidate
         >
           {serverError && (
-            <div className="rounded-md bg-red-50 p-4" role="alert">
+            <div
+              className="rounded-md bg-red-50 p-4"
+              role="alert"
+              aria-live="assertive"
+            >
               <p className="text-sm text-red-800">{serverError}</p>
             </div>
           )}
