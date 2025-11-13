@@ -1,42 +1,16 @@
-'use client';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import SignOutButton from './SignOutButton';
+import GoHomeButton from './GoHomeButton';
 
-import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions);
 
-export default function DashboardPage() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-    }
-  }, [status, router]);
-
-  if (status === 'loading') {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
+  // This should never happen due to middleware, but add as defense-in-depth
   if (!session) {
-    return null;
+    redirect('/login');
   }
-
-  const handleSignOutClick = async () => {
-    try {
-      await signOut({ callbackUrl: '/login' });
-    } catch (error) {
-      console.error('Error signing out: ' + (error instanceof Error ? error.message : 'Unknown error'));
-    }
-  };
-
-  const handleGoHomeClick = () => {
-    router.push('/');
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
@@ -75,18 +49,8 @@ export default function DashboardPage() {
           </div>
 
           <div className="flex gap-4">
-            <button
-              onClick={handleSignOutClick}
-              className="rounded-md bg-red-600 px-6 py-2 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-            >
-              Sign Out
-            </button>
-            <button
-              onClick={handleGoHomeClick}
-              className="rounded-md bg-gray-600 px-6 py-2 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-            >
-              Go to Home
-            </button>
+            <SignOutButton />
+            <GoHomeButton />
           </div>
         </div>
 
