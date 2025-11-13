@@ -20,4 +20,5 @@ Analyze the provided code and provide a comprehensive review based on the follow
     - Identify potential bugs, security vulnerabilities, and performance bottlenecks.
     - Ensure adherence to coding standards and best practices.
     - Suggest improvements to enhance the overall quality of the codebase.
+    - Evaluate test coverage and suggest new tests for uncovered edge cases.
 4. **Persistence:** Deliver the final review by running `pnpm write-output --prompt dev-resources/architecture/review/prompt.md --source <draft-file>` (or pipe stdin). The helper routes to the correct `output.md`, overwrites atomically, and stores a hidden backup before the new content lands.

@@ -41,3 +41,4 @@ Your review MUST be structured into the following sections:
 3. **Actionable Feedback & Issues:**
     - A detailed, numbered list of specific issues, inconsistencies, or gaps found in the plan.
     - For each issue, provide a clear suggestion for improvement or a question to the author. Reference the specific part of the plan (e.g., "In the Pseudo-code section...").
+    - Prioritize feedback by severity, calling out security, architectural, and data-integrity issues first.

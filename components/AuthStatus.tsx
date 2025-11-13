@@ -1,16 +1,9 @@
-/**
- * AuthStatus Component
- *
- * Displays the current authentication status and provides
- * navigation to login or dashboard based on session state.
- */
-
 'use client';
 
 import Link from 'next/link';
 import type { Session } from 'next-auth';
 
-export interface AuthStatusProps {
+interface AuthStatusProps {
   session: Session | null;
   status: 'loading' | 'authenticated' | 'unauthenticated';
 }
