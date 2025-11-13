@@ -1,5 +1,6 @@
 import type { Config } from 'jest';
-import nextJest from 'next/jest';
+// NOTE: Explicit file extension to satisfy Node ESM resolution in Jest 30+ / Next 16
+import nextJest from 'next/jest.js';
 
 /**
  * Create Jest config with Next.js support.
@@ -16,21 +17,23 @@ const createJestConfig = nextJest({
 const config: Config = {
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
-  
+
   // Setup files to run after the test framework is installed
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  
+
   // Module path aliases (must match tsconfig.json paths)
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },
-  
+
   // Test match patterns
   testMatch: [
     '**/__tests__/**/*.{js,jsx,ts,tsx}',
     '**/*.{spec,test}.{js,jsx,ts,tsx}',
   ],
-  
+  // Ignore Playwright E2E tests; they run with @playwright/test
+  testPathIgnorePatterns: ['<rootDir>/e2e/'],
+
   // Coverage collection configuration
   collectCoverageFrom: [
     'app/**/*.{js,jsx,ts,tsx}',
@@ -42,7 +45,7 @@ const config: Config = {
     '!**/jest.config.ts',
     '!**/next.config.ts',
   ],
-  
+
   // Coverage thresholds (optional - adjust as needed)
   coverageThreshold: {
     global: {
