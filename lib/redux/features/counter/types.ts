@@ -4,7 +4,7 @@ export enum CounterActionType {
   DECREMENT = 'counter/decrement',
   RESET = 'counter/reset',
 }
- 
+
 // State Type
 export interface CounterState {
   count: number;

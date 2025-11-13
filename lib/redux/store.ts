@@ -5,7 +5,7 @@ import {
   Reducer,
   AnyAction,
 } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer, Persistor } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { rootReducer, RootState } from './rootReducer';
 
@@ -24,12 +24,16 @@ const persistConfig = {
   // blacklist: [], // Specify which reducers NOT to persist
 };
 
-// Wrap the root reducer with persistReducer
-// Double type assertion needed due to redux-persist TypeScript limitations with combineReducers
+/**
+ * Wrap the root reducer with persistReducer.
+ * The double type assertion (through 'unknown') is necessary due to redux-persist's
+ * type inference limitations with combineReducers. This is a known issue
+ * in the redux-persist library (see: https://github.com/rt2zz/redux-persist/issues/1140)
+ * The assertion is safe as persistReducer preserves the state shape at runtime.
+ */
 const persistedReducer = persistReducer(
   persistConfig,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  rootReducer as any,
+  rootReducer as unknown as Reducer<RootState, AnyAction>,
 ) as unknown as Reducer<RootState, AnyAction>;
 
 // Create the Redux store with DevTools support (development only)
@@ -53,7 +57,7 @@ export const initializeStore = () =>
 export const store = initializeStore();
 
 // Create and export the persistor
-export const persistor = persistStore(store);
+export const persistor: Persistor = persistStore(store);
 
 // Export types for TypeScript
 export type AppDispatch = typeof store.dispatch;
