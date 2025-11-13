@@ -1,4 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
 // Module mocks
@@ -35,7 +36,48 @@ describe('LoginPage', () => {
     ).toBeInTheDocument();
   });
 
+  it('shows validation errors when fields are empty', async () => {
+    const user = userEvent.setup();
+    render(<LoginPage />);
+
+    const button = screen.getByRole('button', { name: /sign in/i });
+    await user.click(button);
+
+    await screen.findByText(/email is required/i);
+    await screen.findByText(/password is required/i);
+
+    expect(pushMock).not.toHaveBeenCalled();
+  });
+
+  it('shows validation error for invalid email', async () => {
+    const user = userEvent.setup();
+    render(<LoginPage />);
+
+    await user.type(screen.getByLabelText(/email address/i), 'notanemail');
+    await user.type(screen.getByLabelText(/password/i), 'password123');
+    await user.click(screen.getByRole('button', { name: /sign in/i }));
+
+    await screen.findByText(/please enter a valid email address/i);
+    expect(signInMock).not.toHaveBeenCalled();
+  });
+
+  it('shows validation error for short password', async () => {
+    const user = userEvent.setup();
+    render(<LoginPage />);
+
+    await user.type(
+      screen.getByLabelText(/email address/i),
+      'test@example.com',
+    );
+    await user.type(screen.getByLabelText(/password/i), '123');
+    await user.click(screen.getByRole('button', { name: /sign in/i }));
+
+    await screen.findByText(/password must be at least 6 characters/i);
+    expect(signInMock).not.toHaveBeenCalled();
+  });
+
   it('shows error when credentials are invalid', async () => {
+    const user = userEvent.setup();
     signInMock.mockResolvedValueOnce({
       ok: false,
       error: 'Invalid credentials',
@@ -43,14 +85,12 @@ describe('LoginPage', () => {
 
     render(<LoginPage />);
 
-    fireEvent.change(screen.getByLabelText(/email address/i), {
-      target: { value: 'wrong@example.com' },
-    });
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: 'wrong' },
-    });
-
-    fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    await user.type(
+      screen.getByLabelText(/email address/i),
+      'wrong@example.com',
+    );
+    await user.type(screen.getByLabelText(/password/i), 'wrongpass');
+    await user.click(screen.getByRole('button', { name: /sign in/i }));
 
     await screen.findByText(/invalid email or password/i);
 
@@ -59,24 +99,24 @@ describe('LoginPage', () => {
   });
 
   it('navigates to dashboard on successful login', async () => {
+    const user = userEvent.setup();
     signInMock.mockResolvedValueOnce({ ok: true, error: null });
 
     render(<LoginPage />);
 
-    fireEvent.change(screen.getByLabelText(/email address/i), {
-      target: { value: 'demo@example.com' },
-    });
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: 'password' },
-    });
-
-    fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    await user.type(
+      screen.getByLabelText(/email address/i),
+      'demo@example.com',
+    );
+    await user.type(screen.getByLabelText(/password/i), 'password');
+    await user.click(screen.getByRole('button', { name: /sign in/i }));
 
     await waitFor(() => expect(pushMock).toHaveBeenCalledWith('/dashboard'));
     expect(refreshMock).toHaveBeenCalled();
   });
 
   it('disables button and shows loading text while submitting', async () => {
+    const user = userEvent.setup();
     // Keep the promise pending for a bit to assert loading state
     let resolveFn!: (v: unknown) => void;
     const pending = new Promise((resolve) => {
@@ -86,15 +126,14 @@ describe('LoginPage', () => {
 
     render(<LoginPage />);
 
-    fireEvent.change(screen.getByLabelText(/email address/i), {
-      target: { value: 'demo@example.com' },
-    });
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: 'password' },
-    });
+    await user.type(
+      screen.getByLabelText(/email address/i),
+      'demo@example.com',
+    );
+    await user.type(screen.getByLabelText(/password/i), 'password');
 
     const button = screen.getByRole('button', { name: /sign in/i });
-    fireEvent.click(button);
+    await user.click(button);
 
     expect(button).toBeDisabled();
     expect(button).toHaveTextContent(/signing in/i);
