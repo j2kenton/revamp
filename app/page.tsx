@@ -27,49 +27,11 @@ export default function Home() {
             Next.js App with Authentication
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl">
-            Built with Next.js 14, NextAuth.js, Redux, and TypeScript
+            Dev server is running.
           </p>
         </div>
 
         <AuthStatus session={session} status={status} />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl">
-          <div className="bg-white rounded-lg p-6 shadow-md">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              🔐 NextAuth.js
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Secure authentication with JWT sessions and httpOnly cookies
-            </p>
-          </div>
-
-          <div className="bg-white rounded-lg p-6 shadow-md">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              🔄 Redux
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Client-side state management with Redux Toolkit
-            </p>
-          </div>
-
-          <div className="bg-white rounded-lg p-6 shadow-md">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              ⚡ Next.js 14
-            </h3>
-            <p className="text-gray-600 text-sm">
-              App Router with Server Components
-            </p>
-          </div>
-
-          <div className="bg-white rounded-lg p-6 shadow-md">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              📘 TypeScript
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Fully typed with strict type checking
-            </p>
-          </div>
-        </div>
       </main>
     </div>
   );
