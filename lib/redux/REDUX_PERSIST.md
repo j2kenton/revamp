@@ -1,5 +1,7 @@
 # redux-persist Integration Guide
 
+> **Note:** `components/examples/ReduxPersistExample.tsx` referenced below was removed during interview-prep trimming. The store setup (`lib/redux/store.ts`, `rootReducer.ts`) is unaffected and still wired up.
+
 This project uses [redux-persist](https://github.com/rt2zz/redux-persist) to persist and rehydrate Redux state across browser sessions using localStorage.
 
 ## Overview

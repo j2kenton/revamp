@@ -1,5 +1,7 @@
 # SWR Quick Reference
 
+> **Note:** The `components/examples/` and `/swr-demo` references below were removed during interview-prep trimming. `lib/swr/hooks.ts` is still the source of truth for these patterns.
+
 ## 🚀 Quick Start
 
 ### 1. Install

@@ -1,5 +1,7 @@
 # shadcn-ui Setup and Usage Guide
 
+> **Note:** `components/examples/ShadcnExamples.tsx` referenced below was removed during interview-prep trimming. The actual components (`components/ui/`) are unaffected.
+
 This project uses [shadcn-ui](https://ui.shadcn.com/), a collection of reusable components built with Radix UI and Tailwind CSS.
 
 ## Overview

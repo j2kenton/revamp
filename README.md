@@ -6,10 +6,9 @@ ReVamp is a comprehensive web development template that combines modern best pra
 
 ## Why ReVamp?
 
-- **🤖 AI-First Development**: Built-in AI coding guidelines and agent workflows
+- **🤖 AI-First Development**: Built-in AI coding guidelines (see `CLAUDE.md` / `.github/copilot-instructions.md`)
 - **⚡ Production-Ready**: Complete setup with authentication, state management, and testing
 - **🎨 Beautiful UI**: Pre-configured with Tailwind CSS and shadcn-ui components
-- **📚 Rich Examples**: Comprehensive implementation examples for all major features
 - **🔒 Secure by Default**: Security best practices baked into every layer
 - **♿ Accessible**: WCAG AA compliance from the start
 

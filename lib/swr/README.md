@@ -1,5 +1,7 @@
 # SWR Implementation Examples
 
+> **Note:** The `components/examples/` demo components and `/swr-demo` page referenced below were removed to keep this repo lean for interview use. The patterns and code snippets in this doc (and in `fetcher.ts`/`hooks.ts`/`types.ts`) are still valid and live — just copy from here directly instead of an example file.
+
 This directory contains comprehensive examples of using **SWR** (stale-while-revalidate) for data fetching in Next.js applications.
 
 ## 📁 Structure

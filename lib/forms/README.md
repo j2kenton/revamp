@@ -1,5 +1,7 @@
 # react-hook-form & Zod Form Management Guide
 
+> **Note:** The `components/examples/forms/` components referenced below were removed during interview-prep trimming. The schemas in `lib/forms/schemas/` and the real `app/login/page.tsx` implementation are unaffected — use those as the working reference instead.
+
 This project uses [react-hook-form](https://react-hook-form.com/) for performant form state management and [Zod](https://zod.dev/) for type-safe schema validation.
 
 ## Overview
